@@ -23,7 +23,7 @@ export default async function Home() {
               🌿 Premium Eco Collection
             </span>
             <h1 className="text-5xl md:text-7xl font-extrabold text-white mb-6 leading-[1.1] tracking-tight">
-              Nature's Finest <br />
+              Nature&apos;s Finest <br />
               <span className="text-transparent bg-clip-text bg-linear-to-r from-jute-light to-white">
                 Sustainable Style.
               </span>
@@ -49,7 +49,7 @@ export default async function Home() {
               <div className="absolute inset-0 bg-linear-to-tr from-primary/40 to-transparent rounded-4xl transform rotate-3 scale-105 transition-transform duration-500 hover:rotate-6"></div>
               <div className="absolute inset-0 bg-white/10 backdrop-blur-3xl rounded-4xl border border-white/20 overflow-hidden shadow-2xl transform -rotate-3 transition-transform hover:rotate-0 duration-500">
                 <Image
-                  src="https://images.unsplash.com/photo-1615598585641-654876bbf255?q=80&w=1000&auto=format&fit=crop"
+                  src="https://img.magnific.com/free-photo/medium-shot-woman-picking-oranges_23-2149059846.jpg"
                   alt="Eco-friendly Jute Products"
                   fill
                   className="object-cover opacity-90 hover:scale-110 transition-transform duration-700"
@@ -69,8 +69,8 @@ export default async function Home() {
               Why Choose Jute?
             </h2>
             <p className="text-lg text-foreground/80 leading-relaxed font-medium">
-              Jute is more than just a fiber; it's a commitment to our planet.
-              100% biodegradable, incredibly durable, and beautifully
+              Jute is more than just a fiber; it&apos;s a commitment to our
+              planet. 100% biodegradable, incredibly durable, and beautifully
               handcrafted by artisans in Bangladesh. Embrace the eco-friendly
               lifestyle without compromising on elegance and style.
             </p>
