@@ -43,7 +43,10 @@ export const getToken = () => typeof window !== 'undefined' ? localStorage.getIt
 export async function fetchCategories(): Promise<Category[]> {
   try {
     const res = await fetch(`${API_URL}/categories`, { next: { revalidate: 60 } });
-    if (!res.ok) throw new Error('Failed to fetch categories');
+    if (!res.ok) {
+      console.warn('Failed to fetch categories');
+      return [];
+    }
     const data = await res.json();
     return data.data || [];
   } catch (error) {
@@ -65,7 +68,10 @@ export async function fetchProducts(categoryId?: string, search?: string): Promi
     const fetchOptions = search ? { cache: 'no-store' as RequestCache } : { next: { revalidate: 60 } };
     
     const res = await fetch(url, fetchOptions);
-    if (!res.ok) throw new Error('Failed to fetch products');
+    if (!res.ok) {
+      console.warn('Failed to fetch products');
+      return [];
+    }
     const data = await res.json();
     return data.data || [];
   } catch (error) {
