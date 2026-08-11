@@ -1,26 +1,49 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@theme {
+  --color-primary: #769656;
+  --color-primary-dark: #5c7940;
+  --color-jute: #c19a6b;
+  --color-jute-light: #e6d8c0;
+  --color-jute-dark: #8b6b43;
+  
+  --color-background: #fdfbf7;
+  --color-foreground: #1a202c;
+  --font-sans: var(--font-inter);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  @apply antialiased;
+}
+
+/* Micro-animations and utility classes */
+.hover-scale {
+  @apply transition-transform duration-300 hover:scale-105;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+/* Card base — always white bg, always dark text */
+.card {
+  @apply bg-white rounded-2xl shadow-sm border border-gray-100 text-gray-900;
+}
+
+/* Input base */
+.input-field {
+  @apply w-full bg-gray-50 border border-gray-200 rounded-xl py-3 px-4 text-gray-900 placeholder-gray-400
+    focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-shadow;
+}
+
+/* Section label */
+.label {
+  @apply block text-sm font-medium text-gray-600 mb-1.5;
 }
