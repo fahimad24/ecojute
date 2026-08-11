@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { getProfile, User } from '@/lib/api';
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { getProfile, User } from "@/lib/api";
 import {
   LayoutDashboard,
   Package,
@@ -12,25 +12,29 @@ import {
   LogOut,
   ChevronLeft,
   Store,
-} from 'lucide-react';
+} from "lucide-react";
 
 const sidebarLinks = [
-  { href: '/admin', label: 'Dashboard', icon: LayoutDashboard },
-  { href: '/admin/products', label: 'Products', icon: Package },
-  { href: '/admin/orders', label: 'Orders', icon: ShoppingCart },
-  { href: '/admin/categories', label: 'Categories', icon: Tag },
+  { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/admin/products", label: "Products", icon: Package },
+  { href: "/admin/orders", label: "Orders", icon: ShoppingCart },
+  { href: "/admin/categories", label: "Categories", icon: Tag },
 ];
 
-export default function AdminLayout({ children }: { children: React.ReactNode }) {
+export default function AdminLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const pathname = usePathname();
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getProfile().then(profile => {
-      if (!profile || profile.role !== 'ADMIN') {
-        router.push('/login');
+    getProfile().then((profile) => {
+      if (!profile || profile.role !== "ADMIN") {
+        router.push("/login");
         return;
       }
       setUser(profile);
@@ -39,9 +43,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   }, [router]);
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    window.dispatchEvent(new Event('auth-change'));
-    router.push('/login');
+    localStorage.removeItem("token");
+    window.dispatchEvent(new Event("auth-change"));
+    router.push("/login");
   };
 
   if (loading) {
@@ -75,15 +79,17 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         {/* Navigation */}
         <nav className="flex-1 p-4 space-y-1">
           {sidebarLinks.map((link) => {
-            const isActive = pathname === link.href || (link.href !== '/admin' && pathname.startsWith(link.href));
+            const isActive =
+              pathname === link.href ||
+              (link.href !== "/admin" && pathname.startsWith(link.href));
             return (
               <Link
                 key={link.href}
                 href={link.href}
                 className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
                   isActive
-                    ? 'bg-primary text-white shadow-lg shadow-primary/30'
-                    : 'text-gray-400 hover:bg-gray-800 hover:text-white'
+                    ? "bg-primary text-white shadow-lg shadow-primary/30"
+                    : "text-gray-400 hover:bg-gray-800 hover:text-white"
                 }`}
               >
                 <link.icon size={20} />
@@ -112,7 +118,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
           {/* User Info */}
           <div className="px-4 py-3 mt-2">
-            <p className="text-sm font-medium text-white truncate">{user?.name}</p>
+            <p className="text-sm font-medium text-white truncate">
+              {user?.name}
+            </p>
             <p className="text-xs text-gray-500 truncate">{user?.email}</p>
           </div>
         </div>
@@ -120,9 +128,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
       {/* Main Content */}
       <main className="flex-1 ml-64">
-        <div className="p-8">
-          {children}
-        </div>
+        <div className="p-8">{children}</div>
       </main>
     </div>
   );

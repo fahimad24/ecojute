@@ -1,18 +1,25 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { ShoppingBag, Search, Menu, User, X, Shield, ShoppingCart } from 'lucide-react';
-import { getProfile, User as UserType } from '@/lib/api';
-import { useCart } from '@/context/CartContext';
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import {
+  ShoppingBag,
+  Search,
+  Menu,
+  User,
+  X,
+  Shield,
+  ShoppingCart,
+} from "lucide-react";
+import { getProfile, User as UserType } from "@/lib/api";
+import { useCart } from "@/context/CartContext";
 
 export default function Navbar() {
   const pathname = usePathname();
   const [user, setUser] = useState<UserType | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { totalItems, setIsCartOpen } = useCart();
-
 
   useEffect(() => {
     const loadUser = () => {
@@ -21,18 +28,18 @@ export default function Navbar() {
     loadUser();
 
     // Listen for auth changes (login/logout)
-    window.addEventListener('auth-change', loadUser);
-    return () => window.removeEventListener('auth-change', loadUser);
+    window.addEventListener("auth-change", loadUser);
+    return () => window.removeEventListener("auth-change", loadUser);
   }, []);
 
   // Don't show navbar on admin pages
-  if (pathname.startsWith('/admin')) return null;
+  if (pathname.startsWith("/admin")) return null;
 
   const navLinks = [
-    { href: '/', label: 'Home' },
-    { href: '/products', label: 'Shop' },
-    { href: '/products?category=bags', label: 'Bags' },
-    { href: '/products?category=baskets', label: 'Baskets' },
+    { href: "/", label: "Home" },
+    { href: "/products", label: "Shop" },
+    { href: "/products?category=bags", label: "Bags" },
+    { href: "/products?category=baskets", label: "Baskets" },
   ];
 
   return (
@@ -43,16 +50,18 @@ export default function Navbar() {
           <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center text-white font-bold text-lg group-hover:scale-105 transition-transform shadow-sm">
             E
           </div>
-          <span className="text-xl font-bold tracking-tight text-gray-900">EcoJute</span>
+          <span className="text-xl font-bold tracking-tight text-gray-900">
+            EcoJute
+          </span>
         </Link>
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-8 text-sm font-medium">
-          {navLinks.map(link => (
+          {navLinks.map((link) => (
             <Link
               key={link.label}
               href={link.href}
-              className={`hover:text-primary transition-colors ${pathname === link.href ? 'text-primary font-semibold' : 'text-gray-600'}`}
+              className={`hover:text-primary transition-colors ${pathname === link.href ? "text-primary font-semibold" : "text-gray-600"}`}
             >
               {link.label}
             </Link>
@@ -61,7 +70,7 @@ export default function Navbar() {
 
         {/* Icons */}
         <div className="flex items-center gap-2">
-          {user?.role === 'ADMIN' && (
+          {user?.role === "ADMIN" && (
             <Link
               href="/admin"
               className="hidden md:flex items-center gap-1.5 px-3 py-1.5 bg-primary/10 text-primary rounded-full text-xs font-bold hover:bg-primary/20 transition-colors"
@@ -71,17 +80,24 @@ export default function Navbar() {
           )}
 
           {user ? (
-            <Link href="/profile" className="p-2 hover:bg-gray-100 rounded-full transition-colors" aria-label="Profile">
+            <Link
+              href="/profile"
+              className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+              aria-label="Profile"
+            >
               <User className="w-5 h-5 text-gray-700" />
             </Link>
           ) : (
-            <Link href="/login" className="hidden md:inline-flex items-center px-4 py-2 bg-primary text-white rounded-full text-sm font-medium hover:bg-primary-dark transition-colors shadow-sm">
+            <Link
+              href="/login"
+              className="hidden md:inline-flex items-center px-4 py-2 bg-primary text-white rounded-full text-sm font-medium hover:bg-primary-dark transition-colors shadow-sm"
+            >
               Sign In
             </Link>
           )}
 
           {/* Cart Icon */}
-          <button 
+          <button
             className="p-2 hover:bg-gray-100 rounded-full transition-colors relative"
             onClick={() => setIsCartOpen(true)}
             aria-label="Cart"
@@ -100,7 +116,11 @@ export default function Navbar() {
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Menu"
           >
-            {mobileOpen ? <X className="w-5 h-5 text-gray-700" /> : <Menu className="w-5 h-5 text-gray-700" />}
+            {mobileOpen ? (
+              <X className="w-5 h-5 text-gray-700" />
+            ) : (
+              <Menu className="w-5 h-5 text-gray-700" />
+            )}
           </button>
         </div>
       </div>
@@ -108,7 +128,7 @@ export default function Navbar() {
       {/* Mobile Menu */}
       {mobileOpen && (
         <div className="md:hidden bg-white border-t border-gray-100 px-4 py-4 space-y-2 shadow-lg">
-          {navLinks.map(link => (
+          {navLinks.map((link) => (
             <Link
               key={link.label}
               href={link.href}
@@ -118,7 +138,7 @@ export default function Navbar() {
               {link.label}
             </Link>
           ))}
-          {user?.role === 'ADMIN' && (
+          {user?.role === "ADMIN" && (
             <Link
               href="/admin"
               onClick={() => setMobileOpen(false)}
@@ -138,9 +158,8 @@ export default function Navbar() {
           )}
         </div>
       )}
-      
+
       {/* Cart Sidebar */}
-      
     </nav>
   );
 }

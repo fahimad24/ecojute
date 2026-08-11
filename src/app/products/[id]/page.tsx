@@ -27,7 +27,9 @@ export default async function ProductDetailPage({
 
   // Fetch related products (just fetching all for now, taking first 4)
   const allProducts = await fetchProducts(product.categoryId);
-  const relatedProducts = allProducts.filter(p => p.id !== product.id).slice(0, 4);
+  const relatedProducts = allProducts
+    .filter((p) => p.id !== product.id)
+    .slice(0, 4);
 
   return (
     <div className="bg-background min-h-screen pb-24">
@@ -50,7 +52,11 @@ export default async function ProductDetailPage({
             <div className="bg-gray-50 p-8 flex items-center justify-center relative group h-125 md:h-auto">
               <div className="relative w-full h-full max-h-150 overflow-hidden rounded-2xl">
                 <Image
-                  src={product.images && product.images.length > 0 ? product.images[0] : "https://images.unsplash.com/photo-1622560480654-d96214fdc887?q=80&w=800&auto=format&fit=crop"}
+                  src={
+                    product.images && product.images.length > 0
+                      ? product.images[0]
+                      : "https://images.unsplash.com/photo-1622560480654-d96214fdc887?q=80&w=800&auto=format&fit=crop"
+                  }
                   alt={product.name}
                   fill
                   className="object-cover object-center group-hover:scale-125 transition-transform duration-700 ease-in-out cursor-zoom-in"
@@ -155,28 +161,34 @@ export default async function ProductDetailPage({
             You May Also Like
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {relatedProducts.length > 0 ? relatedProducts.map((item) => (
-              <Link
-                href={`/products/${item.id}`}
-                key={item.id}
-                className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group border border-gray-100"
-              >
-                <div className="relative h-56 overflow-hidden bg-gray-100">
-                  <Image
-                    src={item.images && item.images.length > 0 ? item.images[0] : `https://images.unsplash.com/photo-1601625902195-021b3f71c4c9?q=80&w=400&auto=format&fit=crop`}
-                    alt={item.name}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-                <div className="p-4">
-                  <h3 className="font-bold text-foreground mb-2 line-clamp-1 group-hover:text-primary transition-colors">
-                    {item.name}
-                  </h3>
-                  <p className="font-bold text-primary">৳{item.price}</p>
-                </div>
-              </Link>
-            )) : (
+            {relatedProducts.length > 0 ? (
+              relatedProducts.map((item) => (
+                <Link
+                  href={`/products/${item.id}`}
+                  key={item.id}
+                  className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group border border-gray-100"
+                >
+                  <div className="relative h-56 overflow-hidden bg-gray-100">
+                    <Image
+                      src={
+                        item.images && item.images.length > 0
+                          ? item.images[0]
+                          : `https://images.unsplash.com/photo-1601625902195-021b3f71c4c9?q=80&w=400&auto=format&fit=crop`
+                      }
+                      alt={item.name}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
+                  <div className="p-4">
+                    <h3 className="font-bold text-foreground mb-2 line-clamp-1 group-hover:text-primary transition-colors">
+                      {item.name}
+                    </h3>
+                    <p className="font-bold text-primary">৳{item.price}</p>
+                  </div>
+                </Link>
+              ))
+            ) : (
               <div className="col-span-full py-8 text-center text-gray-500">
                 No related products found.
               </div>

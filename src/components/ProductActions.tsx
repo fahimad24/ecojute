@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import Link from 'next/link';
-import { ShoppingCart } from 'lucide-react';
-import { Product } from '@/lib/api';
-import { useCart } from '@/context/CartContext';
-import { useRouter } from 'next/navigation';
+import { useState } from "react";
+import Link from "next/link";
+import { ShoppingCart } from "lucide-react";
+import { Product } from "@/lib/api";
+import { useCart } from "@/context/CartContext";
+import { useRouter } from "next/navigation";
 
 export default function ProductActions({ product }: { product: Product }) {
   const [quantity, setQuantity] = useState(1);
@@ -13,11 +13,11 @@ export default function ProductActions({ product }: { product: Product }) {
   const router = useRouter();
 
   const handleDecrease = () => {
-    if (quantity > 1) setQuantity(q => q - 1);
+    if (quantity > 1) setQuantity((q) => q - 1);
   };
 
   const handleIncrease = () => {
-    setQuantity(q => q + 1);
+    setQuantity((q) => q + 1);
   };
 
   const handleAddToCart = () => {
@@ -27,14 +27,14 @@ export default function ProductActions({ product }: { product: Product }) {
   const handleOrderNow = (e: React.MouseEvent) => {
     e.preventDefault();
     addToCart(product, quantity, true);
-    router.push('/checkout');
+    router.push("/checkout");
   };
 
   return (
     <div className="flex flex-col sm:flex-row gap-4 mt-auto">
       {/* Quantity Selector */}
       <div className="flex items-center border-2 border-gray-200 rounded-full w-max overflow-hidden bg-white">
-        <button 
+        <button
           onClick={handleDecrease}
           className="w-12 h-14 flex items-center justify-center text-gray-500 hover:bg-gray-100 hover:text-foreground text-xl font-medium transition-colors"
         >
@@ -46,7 +46,7 @@ export default function ProductActions({ product }: { product: Product }) {
           readOnly
           className="w-12 text-center font-bold text-lg focus:outline-none"
         />
-        <button 
+        <button
           onClick={handleIncrease}
           className="w-12 h-14 flex items-center justify-center text-gray-500 hover:bg-gray-100 hover:text-foreground text-xl font-medium transition-colors"
         >

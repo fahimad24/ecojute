@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { Product } from '@/lib/api';
+import React, { createContext, useContext, useState, useEffect } from "react";
+import { Product } from "@/lib/api";
 
 export interface CartItem {
   product: Product;
@@ -29,12 +29,12 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   // Load from local storage
   useEffect(() => {
-    const storedCart = localStorage.getItem('ecojute_cart');
+    const storedCart = localStorage.getItem("ecojute_cart");
     if (storedCart) {
       try {
         setItems(JSON.parse(storedCart));
       } catch (e) {
-        console.error('Failed to parse cart', e);
+        console.error("Failed to parse cart", e);
       }
     }
     setIsInitialized(true);
@@ -43,23 +43,30 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   // Save to local storage
   useEffect(() => {
     if (isInitialized) {
-      localStorage.setItem('ecojute_cart', JSON.stringify(items));
+      localStorage.setItem("ecojute_cart", JSON.stringify(items));
     }
   }, [items, isInitialized]);
 
-  const addToCart = (product: Product, quantity: number, overwrite: boolean = false) => {
-    setItems(prev => {
-      const existingItem = prev.find(item => item.product.id === product.id);
+  const addToCart = (
+    product: Product,
+    quantity: number,
+    overwrite: boolean = false,
+  ) => {
+    setItems((prev) => {
+      const existingItem = prev.find((item) => item.product.id === product.id);
       if (existingItem) {
-        return prev.map(item =>
+        return prev.map((item) =>
           item.product.id === product.id
-            ? { ...item, quantity: overwrite ? quantity : item.quantity + quantity }
-            : item
+            ? {
+                ...item,
+                quantity: overwrite ? quantity : item.quantity + quantity,
+              }
+            : item,
         );
       }
       return [...prev, { product, quantity }];
     });
-    
+
     // Only open the sidebar if we are not overwriting (which we use for "Order Now")
     if (!overwrite) {
       setIsCartOpen(true);
@@ -67,7 +74,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   };
 
   const removeFromCart = (productId: string) => {
-    setItems(prev => prev.filter(item => item.product.id !== productId));
+    setItems((prev) => prev.filter((item) => item.product.id !== productId));
   };
 
   const updateQuantity = (productId: string, quantity: number) => {
@@ -75,10 +82,10 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       removeFromCart(productId);
       return;
     }
-    setItems(prev =>
-      prev.map(item =>
-        item.product.id === productId ? { ...item, quantity } : item
-      )
+    setItems((prev) =>
+      prev.map((item) =>
+        item.product.id === productId ? { ...item, quantity } : item,
+      ),
     );
   };
 
@@ -87,7 +94,10 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   };
 
   const totalItems = items.reduce((acc, item) => acc + item.quantity, 0);
-  const totalPrice = items.reduce((acc, item) => acc + (item.product.price * item.quantity), 0);
+  const totalPrice = items.reduce(
+    (acc, item) => acc + item.product.price * item.quantity,
+    0,
+  );
 
   return (
     <CartContext.Provider
@@ -111,7 +121,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 export function useCart() {
   const context = useContext(CartContext);
   if (context === undefined) {
-    throw new Error('useCart must be used within a CartProvider');
+    throw new Error("useCart must be used within a CartProvider");
   }
   return context;
 }

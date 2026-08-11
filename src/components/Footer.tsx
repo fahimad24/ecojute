@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -10,7 +10,7 @@ export default function Footer() {
   const pathname = usePathname();
 
   // Don't show footer on admin pages
-  if (pathname.startsWith('/admin')) return null;
+  if (pathname.startsWith("/admin")) return null;
 
   return (
     <footer className="bg-gray-900 text-white pt-16 pb-8 border-t-4 border-primary">
@@ -52,22 +52,34 @@ export default function Footer() {
             </h4>
             <ul className="space-y-3 text-sm text-gray-400">
               <li>
-                <Link href="/products?category=bags" className="hover:text-primary transition-colors">
+                <Link
+                  href="/products?category=bags"
+                  className="hover:text-primary transition-colors"
+                >
                   Jute Bags
                 </Link>
               </li>
               <li>
-                <Link href="/products?category=baskets" className="hover:text-primary transition-colors">
+                <Link
+                  href="/products?category=baskets"
+                  className="hover:text-primary transition-colors"
+                >
                   Storage Baskets
                 </Link>
               </li>
               <li>
-                <Link href="/products?category=pethouse" className="hover:text-primary transition-colors">
+                <Link
+                  href="/products?category=pethouse"
+                  className="hover:text-primary transition-colors"
+                >
                   Pet Houses
                 </Link>
               </li>
               <li>
-                <Link href="/products?category=paposh" className="hover:text-primary transition-colors">
+                <Link
+                  href="/products?category=paposh"
+                  className="hover:text-primary transition-colors"
+                >
                   Paposh (Mats)
                 </Link>
               </li>
@@ -81,17 +93,26 @@ export default function Footer() {
             </h4>
             <ul className="space-y-3 text-sm text-gray-400">
               <li>
-                <Link href="/products" className="hover:text-primary transition-colors">
+                <Link
+                  href="/products"
+                  className="hover:text-primary transition-colors"
+                >
                   All Products
                 </Link>
               </li>
               <li>
-                <Link href="/login" className="hover:text-primary transition-colors">
+                <Link
+                  href="/login"
+                  className="hover:text-primary transition-colors"
+                >
                   My Account
                 </Link>
               </li>
               <li>
-                <Link href="/profile" className="hover:text-primary transition-colors">
+                <Link
+                  href="/profile"
+                  className="hover:text-primary transition-colors"
+                >
                   Track Order
                 </Link>
               </li>

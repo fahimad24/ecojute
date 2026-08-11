@@ -10,7 +10,8 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
   title: "EcoJute - 100% Natural & Sustainable Jute Products",
-  description: "Shop eco-friendly, handcrafted jute bags, baskets, pet houses, and more. Handmade in Bangladesh.",
+  description:
+    "Shop eco-friendly, handcrafted jute bags, baskets, pet houses, and more. Handmade in Bangladesh.",
 };
 
 export default function RootLayout({
@@ -23,11 +24,9 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col font-sans">
         <CartProvider>
           <Navbar />
-          <main className="grow">
-            {children}
-          </main>
+          <main className="grow">{children}</main>
           <Footer />
-         <CartSidebar />
+          <CartSidebar />
         </CartProvider>
       </body>
     </html>
